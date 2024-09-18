@@ -1,0 +1,3 @@
+/Users/mihailzaharov/Downloads/task/week2/task2/build/CMakeFiles/ImageGenerator.dir
+/Users/mihailzaharov/Downloads/task/week2/task2/build/CMakeFiles/edit_cache.dir
+/Users/mihailzaharov/Downloads/task/week2/task2/build/CMakeFiles/rebuild_cache.dir
