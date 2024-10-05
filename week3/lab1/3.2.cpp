@@ -22,7 +22,7 @@ private:
     std::default_random_engine engine;
 };
 
-class PenaltyDice : virtual private DiceLayout {
+class PenaltyDice : public DiceLayout {
 public:
     explicit PenaltyDice(DiceLayout& base_dice)
         : base_dice(base_dice) {}
@@ -37,7 +37,7 @@ private:
     DiceLayout& base_dice;
 };
 
-class BonusDice : virtual private DiceLayout {
+class BonusDice : public DiceLayout {
 public:
     explicit BonusDice(DiceLayout& base_dice)
         : base_dice(base_dice) {}
@@ -52,14 +52,18 @@ private:
     DiceLayout& base_dice;
 };
 
-class DoubleDice : private PenaltyDice, private BonusDice, virtual public DiceLayout {
+class DoubleDice : public DiceLayout {
 public:
     explicit DoubleDice(DiceLayout& base_dice)
-        : PenaltyDice(base_dice), BonusDice(base_dice) {}
+        : penalty_dice(base_dice), bonus_dice(base_dice) {}
 
     unsigned roll() override {
-        return (PenaltyDice::roll() + BonusDice::roll()) / 2;
+        return (penalty_dice.roll() + bonus_dice.roll()) / 2;
     }
+
+private:
+    PenaltyDice penalty_dice;
+    BonusDice bonus_dice;
 };
 
 double calculate_expected_value(DiceLayout& dice, unsigned rolls = 1) {
